@@ -1,0 +1,86 @@
+{% extends 'blog_pages/blogcontent.html' %}
+####################3
+{% block btitle %}
+    <title>ListBlog</title>
+    {% endblock %}
+####################
+ {% block style %}
+<style>
+    body {
+  counter-reset: Serial;
+  /* Set the Serial counter to 0 */
+}
+
+tr td:first-child:before {
+  counter-increment: Serial;
+  /* Increment the Serial counter */
+  content: counter(Serial);
+  /* Display the counter */
+}
+</style>
+    {% endblock %}
+#######################
+{% block listcontebt %}
+<table class="table table-dark" id="myTable" >
+  <thead>
+    <tr>
+            <th>Search</th>
+            <th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Title"></th>
+            <th>Export</th>
+            <th ><a  href="{% url 'csv' %}" style="color:red" target="_blank">CSV</a>
+                 <a  href="{% url 'pdf' %}" style="color:red" target="_blank">PDF</a>
+            </th>
+
+        </tr>
+
+  </thead>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Published Date</th>
+      <th scope="col">Image</th>
+      <th scope="col">Audio</th>
+    </tr>
+  </thead>
+  <tbody >
+  {% for blgs in data %}
+    <tr>
+       <td></td>
+      <td><a  href="{% url 'viewblog' %}" style="color:red" target="_blank">{{ blgs.title }}</a> </td>
+      <td>{{ blgs.created_date }}</a> </td>
+      <td><img src="{{blgs.img.url}}" alt="Smiley face" width="150" height="100"></td>
+      <td><audio controls><source src="{{blgs.audio.url}}" type="audio/mpeg"></audio> </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}
+#########################
+{% block listblogscript %}
+<script>
+function myFunction() {
+ // Declare variables
+ var input, filter, table, tr, td, i, txtValue;
+ input = document.getElementById("myInput");
+ filter = input.value.toUpperCase();
+ table = document.getElementById("myTable");
+ tr = table.getElementsByTagName("tr");
+ // Loop through all table rows, and hide those who don't match the search query
+ for (i = 0; i < tr.length; i++) {
+   td = tr[i].getElementsByTagName("td")[1];
+   if (td) {
+     txtValue = td.textContent || td.innerText;
+     if (txtValue.toUpperCase().indexOf(filter) > -1) {
+       tr[i].style.display = "";
+     } else {
+       tr[i].style.display = "none";
+     }
+   }
+ }
+}
+</script>
+{% endblock %}
+#############################################

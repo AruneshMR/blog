@@ -1,0 +1,5 @@
+ <li class="nav-item"><a class="nav-link" href="{% url 'blogs' %}" >Blogs</a></li>
+             if request.user.is_superuser:
+                return render(request, 'html_pages/admin.html', {'datas': get2})
+            else:
+                return render(request, 'html_pages/home.html', {'datas': get2})

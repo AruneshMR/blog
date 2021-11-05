@@ -1,0 +1,10 @@
+{% extends 'html_pages/content.html' %}
+{% csrf_token %}
+
+{% block admincontent %}
+<li class="nav-item"><a class="nav-link" href="{% url 'authors' %}">Users</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'adbloglist' %}">Blog list</a></li>
+<li class="nav-item"><a class="nav-link" href="#">Admin Blog</a></li>
+
+{% endblock %}
+

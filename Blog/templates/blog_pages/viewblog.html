@@ -1,0 +1,36 @@
+{% extends 'blog_pages/blogcontent.html' %}
+####################3
+{% block btitle %}
+    <title>ViewBlog</title>
+    {% endblock %}
+####################
+{% block userviewcontent %}
+
+<div class="signup-form">
+    <form action="{% url 'addblog'%}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+        <h2>Add Blog</h2>
+         <div class="form-group">
+        	<input type="text" class="form-control" name="title"  placeholder="Title" required="required">
+        </div>
+
+		<div class="form-group">
+            <textarea class="form-control" name="story" placeholder="description" required="required"></textarea>
+        </div>
+
+         <div class="form-group">
+             <p >Upload Image File</p>
+             <input type="file" name="myfile">
+		</div>
+
+        <div class="form-group">
+            <p >Upload Audio File</p>
+             <input type="file" name="myaudio">
+		</div>
+
+		<div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">submit </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

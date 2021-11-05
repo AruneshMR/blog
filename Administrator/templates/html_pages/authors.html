@@ -1,0 +1,80 @@
+{% extends 'html_pages/content.html' %}
+{% csrf_token %}
+####################3
+{% block title %}
+    <title>ListAuthors</title>
+    {% endblock %}
+####################
+{% block admincontent %}
+<li class="nav-item"><a class="nav-link" href="{% url 'authors' %}">Users</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'adbloglist' %}">Blog list</a></li>
+{% endblock %}
+ {% block style %}
+<style>
+    body {
+  counter-reset: Serial;
+  /* Set the Serial counter to 0 */
+}
+
+tr td:first-child:before {
+  counter-increment: Serial;
+  /* Increment the Serial counter */
+  content: counter(Serial);
+  /* Display the counter */
+}
+</style>
+ {% endblock %}
+{% block authorlist %}
+<table class="table table-dark" id="myTable" >
+  <thead>
+    <tr>
+            <th>Search</th>
+            <th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Title"></th>
+
+        </tr>
+
+  </thead>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">UserName</th>
+      <th scope="col">FullName</th>
+      <th scope="col">Email</th>
+
+    </tr>
+  </thead>
+  <tbody >
+  {% for blgs in data %}
+    <tr>
+       <td></td>
+      <td><a  href="#" style="color:red" target="_blank">{{ blgs.username }}</a> </td>
+      <td>{{ blgs.first_name }}{{ blgs.last_name }}</td>
+      <td>{{ blgs.email }}</td>
+
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<script>
+function myFunction() {
+ // Declare variables
+ var input, filter, table, tr, td, i, txtValue;
+ input = document.getElementById("myInput");
+ filter = input.value.toUpperCase();
+ table = document.getElementById("myTable");
+ tr = table.getElementsByTagName("tr");
+ // Loop through all table rows, and hide those who don't match the search query
+ for (i = 0; i < tr.length; i++) {
+   td = tr[i].getElementsByTagName("td")[1];
+   if (td) {
+     txtValue = td.textContent || td.innerText;
+     if (txtValue.toUpperCase().indexOf(filter) > -1) {
+       tr[i].style.display = "";
+     } else {
+       tr[i].style.display = "none";
+     }
+   }
+ }
+}
+</script>
+{% endblock %}
